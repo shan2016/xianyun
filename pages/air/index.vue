@@ -7,7 +7,7 @@
     <!-- 搜索广告栏 -->
     <el-row type="flex" justify="space-between">
         <!-- 搜索表单 -->
-        <div>搜索</div>
+        <SearchForm></SearchForm>
 
         <!-- banner广告 -->
         <div class="sale-banner">
@@ -38,14 +38,39 @@
 
     <!-- 特价机票 -->
     <div class="air-sale">
-        
+        <el-row type="flex" class="air-sale-pic" justify="space-between">
+            <el-col :span="6" v-for="(item, index) in sales" :key="index">
+                <nuxt-link :to="`/air/flights?departCity=${item.departCity}&departCode=${item.departCode}&destCity=${item.destCity}&destCode=${item.destCode}&departDate=${item.departDate}`">
+                    <img :src="item.cover"/>
+                    <el-row class="layer-bar" type="flex" justify="space-between">
+                        <span>{{item.departCity}}-{{item.destCity}}</span>
+                        <span>{{item.price}}</span>
+                    </el-row>
+                </nuxt-link>
+            </el-col>
+        </el-row>
     </div>
   </section>
 </template>
 
 <script>
+import SearchForm from '@/components/air/searchForm.vue'
 export default {
-
+  data () {
+    return {
+      sales:[]
+    }
+  },
+  mounted () {
+    this.$axios({
+      url:`/airs/sale`
+    }).then(res=> {
+      this.sales=res.data.data;
+    })
+  },
+   components: {
+     SearchForm
+   }
 }
 </script>
 
