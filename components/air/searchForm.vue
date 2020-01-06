@@ -209,7 +209,9 @@ export default {
         }
       })
       if (valid === false) return;
-
+      const airs =JSON.parse(localStorage.getItem('airs')||`[]`);
+      airs.push(this.form);
+      localStorage.setItem("airs",JSON.stringify(airs));
       //跳转到机票的列表页
       this.$router.push({
         path:'/air/flights',

@@ -37,6 +37,7 @@
             <!-- 侧边栏 -->
             <div class="aside">
                 <!-- 侧边栏组件 -->
+                <FlightsAside/>
             </div>
         </el-row>
     </section>
@@ -47,6 +48,7 @@ import moment from "moment";
 import FlightsListHead from "@/components/air/flightsListHead.vue"
 import FlightsItem from "@/components/air/flightsItem.vue"
 import FlightsFilters from "@/components/air/flightsFilters.vue"
+import FlightsAside from "@/components/air/flightsAside.vue"
 export default {
     data () {
         return {
@@ -66,7 +68,7 @@ export default {
         }
     },
     components: {
-        FlightsListHead,FlightsItem,FlightsFilters
+        FlightsListHead,FlightsItem,FlightsFilters,FlightsAside
     },
     methods: {
         getData(){
@@ -108,6 +110,11 @@ export default {
     },
     mounted () {
         this.getData();
+    },
+    watch: {
+        $route(){
+            this.getData();
+        }
     }
 }
 </script>
