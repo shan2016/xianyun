@@ -42,7 +42,8 @@
                         <el-col :span="3" class="choose-button">
                             <el-button 
                             type="warning" 
-                            size="mini">
+                            size="mini"
+                            @click="handleChoose(data.id, item.seat_xid)">
                             选定
                             </el-button>
                             <p>剩余：{{item.discount}}</p>
@@ -76,6 +77,9 @@ export default {
     methods: {
         handleShowRecommend(){
             this.showRecommend = !this.showRecommend;
+        },
+        handleChoose(id, seatId){
+           console.log(id,seatId)
         }
     },
     computed: {

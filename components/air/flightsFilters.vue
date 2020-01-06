@@ -97,7 +97,7 @@ export default {
                 if(this.flightTimes){
                    const [from,to]=this.flightTimes.split(",");
                 const start = +item.dep_time.split(":")[0];
-                if(start < from &&start>= +to) {
+                if(start < from ||start>= +to) {
                     valid=false;
                 }
                 }
@@ -116,7 +116,7 @@ export default {
         }
     },
     mounted () {
-        console.log(this.data)
+        // console.log(this.data)
     },
     methods: {
         // 选择机场时候触发
