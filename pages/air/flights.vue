@@ -30,7 +30,7 @@
           ></el-pagination>
         </el-row>
       </div>
-      <span>{{paging}}</span>
+      <!-- <span>{{a}}</span> -->
       <!-- 侧边栏 -->
       <div class="aside">
         <!-- 侧边栏组件 -->
@@ -49,12 +49,13 @@ import FlightsAside from "@/components/air/flightsAside.vue";
 export default {
   data() {
     return {
+      // 航班总数据
       flightsData: {
-        flights: [],
+        flights: [], //航班总列表
         info: {},
         options: {}
-      }, // 航班总数据
-      dataList: [], // 航班列表数据，用于循环flightsItem组件，单独出来是因为要分页
+      },
+      // dataList: [], // 航班列表数据，用于循环flightsItem组件，单独出来是因为要分页
       pageIndex: 1, // 当前页数
       pageSize: 5, // 显示条数
       cacheFlightsData: {
@@ -83,12 +84,12 @@ export default {
         // console.log(this.cacheFlightsData)
         // console.log(this.flightsData===this.cacheFlightsData)
         // this.dataList = this.flightsData.flights;
-        this.setDataList(); //初始化dataList数据，获取1 - 10条
+        // this.setDataList(); //初始化dataList数据，获取1 - 10条
       });
     },
     setDataList(arr) {
       if (arr) {
-        // this.pageIndex=1;
+        this.pageIndex = 1;
         this.flightsData.flights = arr;
         this.flightsData.total = arr.length;
       }
@@ -116,12 +117,13 @@ export default {
     }
   },
   computed: {
-    paging() {
-      this.pageIndex = 1;
+    //他必须被调用
+    dataList() {
+      // this.pageIndex = 1;
       const start = (this.pageIndex - 1) * this.pageSize;
       const end = start + this.pageSize;
-      this.dataList = this.flightsData.flights.slice(start, end);
-    //   console.log(this.dataList);
+      return this.flightsData.flights.slice(start, end);
+      //   console.log(this.dataList);
     }
   }
 };
