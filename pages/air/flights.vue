@@ -5,9 +5,8 @@
             <!-- 顶部过滤列表 -->
             <div class="flights-content">
                 <!-- 过滤条件 -->
-                <div>
-                    
-                </div>
+                <FlightsFilters :data="cacheFlightsData"
+                @setDataList="setDataList"></FlightsFilters>
                 
                 <!-- 航班头部布局 -->
                 <FlightsListHead></FlightsListHead>
@@ -47,17 +46,27 @@
 import moment from "moment";
 import FlightsListHead from "@/components/air/flightsListHead.vue"
 import FlightsItem from "@/components/air/flightsItem.vue"
+import FlightsFilters from "@/components/air/flightsFilters.vue"
 export default {
     data () {
         return {
-            flightsData: {}, // 航班总数据
+            flightsData: {
+                flights: [],
+                info: {},
+                options: {}
+            }, // 航班总数据
             dataList: [] ,    // 航班列表数据，用于循环flightsItem组件，单独出来是因为要分页
             pageIndex: 1, // 当前页数
             pageSize: 5,  // 显示条数
+            cacheFlightsData:{
+                flights: [],
+                info: {},
+                options: {}
+            }
         }
     },
     components: {
-        FlightsListHead,FlightsItem
+        FlightsListHead,FlightsItem,FlightsFilters
     },
     methods: {
         getData(){
@@ -67,11 +76,20 @@ export default {
             }).then(res => {
                 // console.log(res)
                 this.flightsData = res.data;
+                // console.log(this.flightsData)
+                this.cacheFlightsData={...res.data};
+                // console.log(this.cacheFlightsData)
+                // console.log(this.flightsData===this.cacheFlightsData)
                 // this.dataList = this.flightsData.flights;
                 this.setDataList();//初始化dataList数据，获取1 - 10条
             })
         },
-        setDataList(){
+        setDataList(arr){
+            if(arr){
+                this.pageIndex=1;
+                this.flightsData.flights=arr;
+                this.flightsData.total=arr.length;
+            }
             const start = (this.pageIndex -1)*this.pageSize;
             const end = start +this.pageSize;
             this.dataList=this.flightsData.flights.slice(start,end)
