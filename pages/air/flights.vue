@@ -77,12 +77,8 @@ export default {
         url: `airs`,
         params: this.$route.query
       }).then(res => {
-        // console.log(res)
         this.flightsData = res.data;
-        // console.log(this.flightsData)
         this.cacheFlightsData = { ...res.data };
-        // console.log(this.cacheFlightsData)
-        // console.log(this.flightsData===this.cacheFlightsData)
         // this.dataList = this.flightsData.flights;
         // this.setDataList(); //初始化dataList数据，获取1 - 10条
       });
@@ -102,7 +98,7 @@ export default {
     },
     // 切换页数时触发
     handleCurrentChange(value) {
-      console.log(value);
+      // console.log(value);
       this.pageIndex = value;
       // console.log(this.pageIndex)
       // this.setDataList();
@@ -122,8 +118,8 @@ export default {
       // this.pageIndex = 1;
       const start = (this.pageIndex - 1) * this.pageSize;
       const end = start + this.pageSize;
+        // console.log(this.flightsData.flights.slice(start, end));
       return this.flightsData.flights.slice(start, end);
-      //   console.log(this.dataList);
     }
   }
 };

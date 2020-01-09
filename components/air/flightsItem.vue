@@ -79,7 +79,14 @@ export default {
             this.showRecommend = !this.showRecommend;
         },
         handleChoose(id, seatId){
-           console.log(id,seatId)
+        //    console.log(id,seatId)
+           this.$router.push({
+                path: "/air/order", 
+                query: {
+                    id,
+                    seat_xid: seatId
+                }
+            })
         }
     },
     computed: {
