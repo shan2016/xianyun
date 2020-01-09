@@ -178,8 +178,12 @@ export default {
       })
         .then(res => {
           // 跳转到付款页
+          const {data:{id}}=res.data;
           this.$router.push({
-            path: "/air/pay"
+            path: "/air/pay",
+            query:{
+              id
+            }
           });
         })
         .catch(err => {
