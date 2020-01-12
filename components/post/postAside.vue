@@ -113,6 +113,7 @@ export default {
   width: 308px;
   padding: 10px 20px;
   border: 1px solid #ddd;
+  z-index: 999;
   // display: none;
   .childrenList {
     // display: none;
